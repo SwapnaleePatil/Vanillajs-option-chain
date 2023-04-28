@@ -293,18 +293,18 @@ body{font-family: 'Roboto', sans-serif;}
 
 	/* semi-transparent black background exposed by padding */
 	background-color: rgba(0, 0, 0, .75);
-	padding-left: 300px;
-	padding-right: 300px;
-	padding-top: 100px;
+	padding-left: 200px;
+	padding-right: 200px;
+	padding-top: 50px;
 
 	/* enables scrolling for tall modals */
 	overflow: auto;
 }
 
 .jw-strategy-modal {
-	padding-left: 400px;
-	padding-right: 400px;
-	padding-top: 100px;
+	padding-left: 200px;
+	padding-right: 200px;
+	padding-top: 50px;
 }
 
 .jw-modal.open {
