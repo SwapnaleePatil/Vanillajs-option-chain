@@ -4972,30 +4972,30 @@
 
                         $(document).ready(function () {
                             const NEUTRAL_LIST = [
-                                {label: 'Long Straddle', src: 'images/Neutral/1.svg', type: 'Neutral'},
-                                {label: 'Long Straddle', src: 'images/Neutral/2.svg', type: 'Neutral'},
-                                {label: 'Long Iron Candor', src: 'images/Neutral/3.svg', type: 'Neutral'},
-                                {label: 'Short Iron Candor', src: 'images/Neutral/4.svg', type: 'Neutral'},
-                                {label: 'Long Strangle', src: 'images/Neutral/5.svg', type: 'Neutral'},
-                                {label: 'Short Strangle', src: 'images/Neutral/6.svg', type: 'Neutral'},
-                                {label: 'Long Iron Butterfly', src: 'images/Neutral/7.svg', type: 'Neutral'},
-                                {label: 'Short Iron Butterfly', src: 'images/Neutral/8.svg', type: 'Neutral'}
+                                {id: 'Neutral_1', label: 'Long Straddle', src: 'images/Neutral/1.svg', type: 'Neutral'},
+                                {id: 'Neutral_2', label: 'Long Straddle', src: 'images/Neutral/2.svg', type: 'Neutral'},
+                                {id: 'Neutral_3', label: 'Long Iron Candor', src: 'images/Neutral/3.svg', type: 'Neutral'},
+                                {id: 'Neutral_4', label: 'Short Iron Candor', src: 'images/Neutral/4.svg', type: 'Neutral'},
+                                {id: 'Neutral_5', label: 'Long Strangle', src: 'images/Neutral/5.svg', type: 'Neutral'},
+                                {id: 'Neutral_6', label: 'Short Strangle', src: 'images/Neutral/6.svg', type: 'Neutral'},
+                                {id: 'Neutral_7', label: 'Long Iron Butterfly', src: 'images/Neutral/7.svg', type: 'Neutral'},
+                                {id: 'Neutral_8', label: 'Short Iron Butterfly', src: 'images/Neutral/8.svg', type: 'Neutral'}
                             ];
                             const BULLISH_LIST = [
-                                {label: 'Bull Call Spread', src: 'images/Bullish/1.svg', type: 'Bullish'},
-                                {label: 'Bull Call Spread', src: 'images/Bullish/1.svg', type: 'Bullish'},
-                                {label: 'Bull Put Spread', src: 'images/Bullish/2.svg', type: 'Bullish'},
-                                {label: 'Bull Put Spread', src: 'images/Bullish/2.svg', type: 'Bullish'},
-                                {label: 'Call Ratio Back Spread', src: 'images/Bullish/3.svg', type: 'Bullish'},
-                                {label: 'Call Ratio Back Spread', src: 'images/Bullish/3.svg', type: 'Bullish'},
+                                {id: 'Bullish_1', label: 'Bull Call Spread', src: 'images/Bullish/1.svg', type: 'Bullish'},
+                                {id: 'Bullish_2', label: 'Bull Call Spread', src: 'images/Bullish/1.svg', type: 'Bullish'},
+                                {id: 'Bullish_3', label: 'Bull Put Spread', src: 'images/Bullish/2.svg', type: 'Bullish'},
+                                {id: 'Bullish_4', label: 'Bull Put Spread', src: 'images/Bullish/2.svg', type: 'Bullish'},
+                                {id: 'Bullish_5', label: 'Call Ratio Back Spread', src: 'images/Bullish/3.svg', type: 'Bullish'},
+                                {id: 'Bullish_6', label: 'Call Ratio Back Spread', src: 'images/Bullish/3.svg', type: 'Bullish'},
                             ];
                             const BEARISH_LIST = [
-                                {label: 'Bull Call Spread', src: 'images/Bearish/1.svg', type: 'Bearish'},
-                                {label: 'Bull Call Spread', src: 'images/Bearish/1.svg', type: 'Bearish'},
-                                {label: 'Bull Put Spread', src: 'images/Bearish/2.svg', type: 'Bearish'},
-                                {label: 'Bull Put Spread', src: 'images/Bearish/2.svg', type: 'Bearish'},
-                                {label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
-                                {label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
+                                {id: 'Bearish_1', label: 'Bull Call Spread', src: 'images/Bearish/1.svg', type: 'Bearish'},
+                                {id: 'Bearish_2', label: 'Bull Call Spread', src: 'images/Bearish/1.svg', type: 'Bearish'},
+                                {id: 'Bearish_3', label: 'Bull Put Spread', src: 'images/Bearish/2.svg', type: 'Bearish'},
+                                {id: 'Bearish_4', label: 'Bull Put Spread', src: 'images/Bearish/2.svg', type: 'Bearish'},
+                                {id: 'Bearish_5', label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
+                                {id: 'Bearish_6', label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
                             ];
 
                             const neutralElement = document.getElementsByClassName('neutral-wrapper')[0];
@@ -5057,6 +5057,7 @@
                                 spanElement.className = "strategy-type";
                                 spanElement.textContent = params.type;
                                 headerElement.appendChild(spanElement);
+                                setTable();
                             }
 
                             function renderChart(){
@@ -5097,9 +5098,14 @@
                                     ]
                                 };
 
-                                var chartOptions = {
+                                const chartOptions = {
                                     responsive: true,
                                     maintainAspectRatio: false,
+                                    plugins: {
+                                        legend: {
+                                            display: false,
+                                        }
+                                    },
                                     scales: {
                                         yAxes: [
                                             {
@@ -5111,12 +5117,111 @@
                                     },
                                 };
 
-                                var myChart = new Chart(ctx, {
+                                 new Chart(ctx, {
                                     type: "line",
                                     data: chartData,
                                     options: chartOptions
                                 });
                             }
+
+                            let table_data = [
+                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'},
+                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'},
+                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'},
+                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'}
+                            ];
+
+                            function setTable() {
+                                const tbodyElement = document.getElementById('strategy-detail-table');
+                                tbodyElement.innerHTML = '';
+                                table_data.forEach((item, item_index) => {
+                                    const trElement = document.createElement('tr');
+                                    for (let index = 0; index < 4; index++){
+                                        let tdElement = document.createElement('td');
+                                        switch(index){
+                                            case 0: {
+                                                tdElement.className = "leg";
+                                                tdElement.textContent = item['leg'];
+                                                break;
+                                            }
+                                            case 1: {
+                                                let divElement = document.createElement('div');
+                                                divElement.className = "strike-price-input";
+                                                let minusElement = document.createElement('img');
+                                                minusElement.src = "images/common/Minus.svg";
+                                                minusElement.onclick = handleStrike;
+                                                minusElement.params = {type: 'subtract', item_index}
+                                                divElement.appendChild(minusElement);
+                                                let labelElement = document.createElement('label');
+                                                labelElement.className = "marginX-10";
+                                                labelElement.textContent = item.strike;
+                                                divElement.appendChild(labelElement);
+                                                let plusElement = document.createElement('img');
+                                                plusElement.src = "images/common/Plus.svg";
+                                                plusElement.onclick = handleStrike;
+                                                plusElement.params = {type: 'add', item_index}
+                                                divElement.appendChild(plusElement);
+                                                tdElement.appendChild(divElement);
+                                                break;
+                                            }
+                                            case 2: {
+                                                tdElement.className = "ltp";
+                                                tdElement.textContent = item['ltp'];
+                                                break;
+                                            }
+                                            case 3: {
+                                                const dates = ["30-Apr-2023","30-May-2023","30-Jun-2023",];
+                                                let selectList = document.createElement("select");
+                                                selectList.className = "strike-price-input";
+                                                selectList.id = "expirey_date";
+                                                selectList.onchange = e => handleExpiryDate(e, item_index);
+                                                for (let i = 0; i < dates.length; i++) {
+                                                    let option = document.createElement("option");
+                                                    option.value = dates[i];
+                                                    option.text = dates[i];
+                                                    selectList.appendChild(option);
+                                                }
+                                                tdElement.appendChild(selectList)
+                                                break;
+                                            }
+                                            default: {
+                                                break;
+                                            }
+                                        }
+                                        trElement.appendChild(tdElement);
+                                    }
+                                    tbodyElement.appendChild(trElement);
+                                })
+                            }
+
+                            function handleStrike(event) {
+                                const {type, item_index} = event.currentTarget.params;
+                                const new_data = [...table_data];
+                                if(type === 'add') {
+                                    new_data[item_index] = {
+                                        ...new_data[item_index],
+                                        strike : new_data[item_index].strike + 100
+                                    }
+                                } else {
+                                    new_data[item_index] = {
+                                        ...new_data[item_index],
+                                        strike : new_data[item_index].strike - 100
+                                    }
+                                }
+                                table_data =[...new_data];
+                                setTable();
+                            }
+
+                            function handleExpiryDate(event, index) {
+
+                            }
+
+                            const spotPriceElement = document.getElementById('spot_price');
+                            spotPriceElement.textContent = 123456789;
+
+                            const futurePriceElement = document.getElementById('future_price');
+                            futurePriceElement.textContent = 123456789;
+
                         })
 
 
@@ -5250,13 +5355,13 @@
                                                     </div>
                                                 </div>
 
-                                                <div id="strategy-detail-modal" class="jw-modal">
+                                                <div id="strategy-detail-modal" class="jw-modal jw-strategy-modal">
                                                     <div class="jw-modal-header">
                                                         <div class="heading-color" id="detail-header"></div>
                                                         <div class="heading-price" id="detail-price-header">
-                                                            <label>Spot. Price:</label><b>123456789</b>
+                                                            <label>Spot. Price:</label><b id="spot_price"></b>
                                                             <label class="marginX-10">|</label>
-                                                            <label>Future. Price:</label><b>123456789</b>
+                                                            <label>Future. Price:</label><b id="future_price"></b>
                                                         </div>
                                                         <div onclick="closeModal()" class="cursor-pointer">
                                                             <img src="images/common/Cross.svg" alt="cross">
@@ -5277,71 +5382,7 @@
                                                                             <th>Expiry Date</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody>
-                                                                        <tr>
-                                                                            <td class="leg">Buy Call</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input">
-                                                                                    <img src="images/common/Minus.svg" />
-                                                                                    <label class="marginX-10">17800</label>
-                                                                                    <img src="images/common/Plus.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="ltp">12.36</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input date-input">
-                                                                                    30-Dec-2023 <img src="images/common/DownArrow.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="leg">Buy Call</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input">
-                                                                                    <img src="images/common/Minus.svg" />
-                                                                                    <label class="marginX-10">17800</label>
-                                                                                    <img src="images/common/Plus.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="ltp">12.36</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input date-input">
-                                                                                    30-Dec-2023 <img src="images/common/DownArrow.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="leg">Buy Call</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input">
-                                                                                    <img src="images/common/Minus.svg" />
-                                                                                    <label class="marginX-10">17800</label>
-                                                                                    <img src="images/common/Plus.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="ltp">12.36</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input date-input">
-                                                                                    30-Dec-2023 <img src="images/common/DownArrow.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td class="leg">Buy Call</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input">
-                                                                                    <img src="images/common/Minus.svg" />
-                                                                                    <label class="marginX-10">17800</label>
-                                                                                    <img src="images/common/Plus.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                            <td class="ltp">12.36</td>
-                                                                            <td>
-                                                                                <div class="strike-price-input date-input">
-                                                                                    30-Dec-2023 <img src="images/common/DownArrow.svg" />
-                                                                                </div>
-                                                                            </td>
-                                                                        </tr>
+                                                                    <tbody id="strategy-detail-table">
                                                                     </tbody>
                                                                 </table>
                                                             </div>
