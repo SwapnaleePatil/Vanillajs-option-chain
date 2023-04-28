@@ -5125,10 +5125,10 @@
                             }
 
                             let table_data = [
-                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'},
-                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'},
-                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'},
-                                {leg: 'Buy Call', strike: 17000, ltp: 12.36, expiry_date: '30-Dec-2023'}
+                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'},
+                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'},
+                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'},
+                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'}
                             ];
 
                             function setTable() {
@@ -5136,7 +5136,7 @@
                                 tbodyElement.innerHTML = '';
                                 table_data.forEach((item, item_index) => {
                                     const trElement = document.createElement('tr');
-                                    for (let index = 0; index < 4; index++){
+                                    for (let index = 0; index < 5; index++){
                                         let tdElement = document.createElement('td');
                                         switch(index){
                                             case 0: {
@@ -5148,28 +5148,52 @@
                                                 let divElement = document.createElement('div');
                                                 divElement.className = "strike-price-input";
                                                 let minusElement = document.createElement('img');
+                                                minusElement.className = "cursor-pointer";
                                                 minusElement.src = "images/common/Minus.svg";
                                                 minusElement.onclick = handleStrike;
-                                                minusElement.params = {type: 'subtract', item_index}
+                                                minusElement.params = {field: 'strike', type: 'subtract', item_index}
                                                 divElement.appendChild(minusElement);
                                                 let labelElement = document.createElement('label');
                                                 labelElement.className = "marginX-10";
                                                 labelElement.textContent = item.strike;
                                                 divElement.appendChild(labelElement);
                                                 let plusElement = document.createElement('img');
+                                                plusElement.className = "cursor-pointer";
                                                 plusElement.src = "images/common/Plus.svg";
                                                 plusElement.onclick = handleStrike;
-                                                plusElement.params = {type: 'add', item_index}
+                                                plusElement.params = {field: 'strike', type: 'add', item_index}
                                                 divElement.appendChild(plusElement);
                                                 tdElement.appendChild(divElement);
                                                 break;
                                             }
                                             case 2: {
+                                                let divElement = document.createElement('div');
+                                                divElement.className = "strike-price-input";
+                                                let minusElement = document.createElement('img');
+                                                minusElement.className = "cursor-pointer";
+                                                minusElement.src = "images/common/Minus.svg";
+                                                minusElement.onclick = handleStrike;
+                                                minusElement.params = {field: 'qty', type: 'subtract', item_index}
+                                                divElement.appendChild(minusElement);
+                                                let labelElement = document.createElement('label');
+                                                labelElement.className = "marginX-10";
+                                                labelElement.textContent = item.qty;
+                                                divElement.appendChild(labelElement);
+                                                let plusElement = document.createElement('img');
+                                                plusElement.className = "cursor-pointer";
+                                                plusElement.src = "images/common/Plus.svg";
+                                                plusElement.onclick = handleStrike;
+                                                plusElement.params = {field: 'qty', type: 'add', item_index}
+                                                divElement.appendChild(plusElement);
+                                                tdElement.appendChild(divElement);
+                                                break;
+                                            }
+                                            case 3: {
                                                 tdElement.className = "ltp";
                                                 tdElement.textContent = item['ltp'];
                                                 break;
                                             }
-                                            case 3: {
+                                            case 4: {
                                                 const dates = ["30-Apr-2023","30-May-2023","30-Jun-2023",];
                                                 let selectList = document.createElement("select");
                                                 selectList.className = "strike-price-input";
@@ -5195,17 +5219,31 @@
                             }
 
                             function handleStrike(event) {
-                                const {type, item_index} = event.currentTarget.params;
+                                const {field, type, item_index} = event.currentTarget.params;
                                 const new_data = [...table_data];
-                                if(type === 'add') {
-                                    new_data[item_index] = {
-                                        ...new_data[item_index],
-                                        strike : new_data[item_index].strike + 100
+                                if(field === 'qty') {
+                                    if(type === 'add') {
+                                        new_data[item_index] = {
+                                            ...new_data[item_index],
+                                            qty : new_data[item_index].qty + 50
+                                        }
+                                    } else {
+                                        new_data[item_index] = {
+                                            ...new_data[item_index],
+                                            qty : new_data[item_index].qty - 50
+                                        }
                                     }
                                 } else {
-                                    new_data[item_index] = {
-                                        ...new_data[item_index],
-                                        strike : new_data[item_index].strike - 100
+                                    if(type === 'add') {
+                                        new_data[item_index] = {
+                                            ...new_data[item_index],
+                                            strike : new_data[item_index].strike + 100
+                                        }
+                                    } else {
+                                        new_data[item_index] = {
+                                            ...new_data[item_index],
+                                            strike : new_data[item_index].strike - 100
+                                        }
                                     }
                                 }
                                 table_data =[...new_data];
@@ -5368,18 +5406,16 @@
                                                         </div>
                                                     </div>
                                                     <div class="jw-modal-body flex-col">
-                                                        <div class="search-bar">
-                                                            NIFTY <img src="images/common/Magnifier.svg" />
-                                                        </div>
                                                         <div class="detail-wrapper">
                                                             <div class="width-50">
                                                                 <table>
                                                                     <thead>
                                                                         <tr>
-                                                                            <th>Leg</th>
-                                                                            <th>Strike</th>
-                                                                            <th>LTP</th>
-                                                                            <th>Expiry Date</th>
+                                                                            <th class="width-15">Leg</th>
+                                                                            <th class="width-20">Strike</th>
+                                                                            <th class="width-20">Qty</th>
+                                                                            <th class="width-15">LTP</th>
+                                                                            <th class="width-30">Expiry Date</th>
                                                                         </tr>
                                                                     </thead>
                                                                     <tbody id="strategy-detail-table">
@@ -5392,15 +5428,26 @@
                                                         </div>
                                                     </div>
                                                     <div class="jw-modal-footer">
-                                                        <input class="view-btn" onclick="closeModal()" setdefault="yes"
-                                                               type="button" value="Done">
+                                                        <div class="width-50">
+                                                            <label> Margin Required: </label><b>1,00,000</b>
+                                                            <br />
+                                                            <label> Available Limits: </label><b>20</b>
+                                                        </div>
+                                                        <div>
+                                                            <input class="view-btn" onclick="closeModal()" setdefault="yes"
+                                                                   type="button" value="Done">
+                                                        </div>
                                                     </div>
                                                 </div>
 
                                             </div>
                                             <div class="form-group div-float2" id="ContentPlaceHolder1_ctl00_dvRfRate">
                                                 <p class="create-stra-txt2">
-                                                    <span id="spnRfRate">Rf Rate: 10%</span>
+                                                    <span id="spnRfRate">Rf Rate: 
+                                                        <input class="input-sml form-control mrl5" id="rf_rate"
+                                                            name="rf_rate" type="number"
+                                                            value="10" min="0" max="100"/>
+                                                    </span>
                                                     <span id="spnSptPrc">NIFTY: ₹ 17425</span>
                                                     <span id="spnDate">Date: 20-Mar-2023</span>
                                                     <input id="hdnSptPrc" name="hdnSptPrc" type="hidden"
@@ -6002,7 +6049,7 @@
 
                                                     <script language="javascript" type="text/javascript">
                                                         $(document).ready(function () {
-                                                            $("#spnRfRate").text("Rf Rate: 10%");
+                                                            // $("#spnRfRate").text("Rf Rate: 10%");
                                                             $("#spnSptPrc").text("NIFTY: ₹ 17425");
                                                             $("#spnDate").text("Date: 20-Mar-2023");
 

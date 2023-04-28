@@ -366,7 +366,6 @@ body.jw-modal-open {
 	background: #fff;
 	padding: 20px;
 	display: flex;
-	justify-content: center;
 }
 
 .strategy-wrapper{
@@ -457,6 +456,26 @@ body.jw-modal-open {
 	width: 50%;
 }
 
+.width-40 {
+	width: 40%;
+}
+
+.width-30 {
+	width: 30%;
+}
+
+.width-20 {
+	width: 20%;
+}
+
+.width-15 {
+	width: 15%;
+}
+
+.width-10 {
+	width: 10%;
+}
+
 .detail-wrapper {
 	margin-top: 24px;
 	display: flex;
@@ -484,7 +503,6 @@ body.jw-modal-open {
 	padding-top: 12px;
 	padding-bottom: 12px;
 	text-align: start;
-	margin-left: 10px;
 }
 
 .ltp {
@@ -510,7 +528,7 @@ body.jw-modal-open {
 	background: #FFFFFF;
 	border: 1px solid #DCDCDC;
 	border-radius: 8px;
-	width: fit-content;
+	margin-right: 10px;
 }
 
 .strike-price-input label {
@@ -545,8 +563,6 @@ body.jw-modal-open {
 .edit-title{float: left;margin: 0px 0px;font-weight: 500;font-size: 16px;line-height: 24px;color: #343A40;
 	text-transform: capitalize;}
 .close1{float: right;color: #343A40;border:none;background-color: transparent;font-size: 16px;top: 12px;}
-.nifty-search{width: 100%;background: url(../images/search.png) no-repeat 98% center; margin: 0px 0px;border:none;
-	border-bottom: 1px solid #D0D0BF;}
 .radio-label{text-align: left;font-weight: 400;font-size: 14px;line-height: 21px;color: #63676C;text-transform: capitalize;}
 .radio-label label{margin-right: 20px;color: #343A40;}
 .qty-inline{display: inline-flex;width: 70%;height: 30px;color: #343A40;}
