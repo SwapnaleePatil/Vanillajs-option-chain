@@ -5370,9 +5370,65 @@
 
                                                 <div id="strategy-modal" class="jw-modal">
                                                     <div class="jw-modal-header">
-                                                        <div class="heading-color">
-                                                            Click to strategy to load in Strategy Builder
+                                                        <div #scriptAndExpiryInputHolder style="display: flex;">
+                                                            <label class="create-stra-txt1" style="float:left">
+                                                                Underlying:
+                                                                <input class="input-sml form-control mrl5" id="txtStockCode"
+                                                                    maxlength="8"
+                                                                    name="txtStockCode" size="8"
+                                                                    style="text-transform: uppercase;" type="text"
+                                                                    value="NIFTY"/>
+                                                            </label>
+            
+            
+                                                            <div id="dvExpiryDate">
+                                                                <div class="create-stra-txt1"
+                                                                     id="ContentPlaceHolder1_ctl00_dvExpDt">
+                                                                    Expiry Date:
+            
+                                                                    <select class="form-control" id="txtExpiryDate"
+                                                                            name="txtExpiryDate" onchange="ViewpOptionsChain();"
+                                                                            style="width:126px !important;">
+            
+                                                                        <option selected value="23-Mar-2023">
+                                                                            23-Mar-2023
+                                                                        </option>
+            
+                                                                        <option value="29-Mar-2023">
+                                                                            29-Mar-2023
+                                                                        </option>
+            
+                                                                        <option value="06-Apr-2023">
+                                                                            06-Apr-2023
+                                                                        </option>
+            
+                                                                        <option value="13-Apr-2023">
+                                                                            13-Apr-2023
+                                                                        </option>
+            
+                                                                        <option value="20-Apr-2023">
+                                                                            20-Apr-2023
+                                                                        </option>
+            
+                                                                        <option value="27-Apr-2023">
+                                                                            27-Apr-2023
+                                                                        </option>
+            
+                                                                        <option value="25-May-2023">
+                                                                            25-May-2023
+                                                                        </option>
+            
+                                                                        <option value="29-Jun-2023">
+                                                                            29-Jun-2023
+                                                                        </option>
+            
+                                                                    </select>
+                                                                </div>
+                                                            </div>
                                                         </div>
+                                                        <!-- <div class="heading-color">
+                                                            Click to strategy to load in Strategy Builder
+                                                        </div> -->
                                                         <div onclick="closeModal()" class="cursor-pointer">
                                                             <img src="images/common/Cross.svg" alt="cross">
                                                         </div>
