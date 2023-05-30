@@ -374,7 +374,7 @@ body.jw-modal-open {
 	align-items: flex-start;
 	padding: 16px;
 	gap: 16px;
-	width: 33.333333333333336%;
+	width: 25%;
 }
 
 .neutral {
@@ -388,10 +388,14 @@ body.jw-modal-open {
 
 .bearish {
 	background: rgba(255, 235, 232, 0.6);
+}
+
+.volatile {
+	background: rgba(230, 242, 229, 0.6);
 	border-radius: 0px 8px 8px 0px;
 }
 
-.neutral-wrapper, .bullish-wrapper, .bearish-wrapper {
+.neutral-wrapper, .bullish-wrapper, .bearish-wrapper, .volatile-wrapper {
 	width: 100%;
 	column-count: 2;
 }

@@ -4997,42 +4997,41 @@
                                 {id: 'Bearish_5', label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
                                 {id: 'Bearish_6', label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
                             ];
+                            const VOLATILE_LIST = [
+                                {id: 'Volatile_1', label: 'Bull Call Spread', src: 'images/Volatile/1.svg', type: 'Volatile'},
+                                {id: 'Volatile_2', label: 'Bull Call Spread', src: 'images/Volatile/1.svg', type: 'Volatile'},
+                                {id: 'Volatile_3', label: 'Bull Put Spread', src: 'images/Volatile/2.svg', type: 'Volatile'},
+                                {id: 'Volatile_4', label: 'Bull Put Spread', src: 'images/Volatile/2.svg', type: 'Volatile'},
+                                {id: 'Volatile_5', label: 'Call Ratio Back Spread', src: 'images/Volatile/3.svg', type: 'Volatile'},
+                                {id: 'Volatile_6', label: 'Call Ratio Back Spread', src: 'images/Volatile/3.svg', type: 'Volatile'},
+                            ];
 
                             const neutralElement = document.getElementsByClassName('neutral-wrapper')[0];
 
                             NEUTRAL_LIST.forEach(item => {
-                                let divElement = document.createElement('div');
-                                divElement.className = "strategy-card";
-                                divElement.onclick = handleNextModal;
-                                divElement.params = item;
-                                let imgElement = document.createElement('img');
-                                imgElement.src = item.src;
-                                let spanElement = document.createElement('span');
-                                spanElement.className = "label";
-                                spanElement.textContent = item.label;
-                                divElement.appendChild(imgElement);
-                                divElement.appendChild(spanElement);
+                                let divElement = strategyCards(item);
                                 neutralElement.appendChild(divElement)
                             })
 
                             const bullishElement = document.getElementsByClassName('bullish-wrapper')[0];
                             BULLISH_LIST.forEach(item => {
-                                let divElement = document.createElement('div');
-                                divElement.className = "strategy-card";
-                                divElement.onclick = handleNextModal;
-                                divElement.params = item;
-                                let imgElement = document.createElement('img');
-                                imgElement.src = item.src;
-                                let spanElement = document.createElement('span');
-                                spanElement.className = "label";
-                                spanElement.textContent = item.label;
-                                divElement.appendChild(imgElement);
-                                divElement.appendChild(spanElement);
+                                let divElement = strategyCards(item);
                                 bullishElement.appendChild(divElement)
                             })
 
                             const bearishElement = document.getElementsByClassName('bearish-wrapper')[0];
                             BEARISH_LIST.forEach(item => {
+                                let divElement = strategyCards(item);
+                                bearishElement.appendChild(divElement)
+                            })
+
+                            const volatileElement = document.getElementsByClassName('volatile-wrapper')[0];
+                            VOLATILE_LIST.forEach(item => {
+                                const divElement = strategyCards(item);
+                                volatileElement.appendChild(divElement);
+                            })
+
+                            function strategyCards(item){
                                 let divElement = document.createElement('div');
                                 divElement.className = "strategy-card";
                                 divElement.onclick = handleNextModal;
@@ -5044,8 +5043,8 @@
                                 spanElement.textContent = item.label;
                                 divElement.appendChild(imgElement);
                                 divElement.appendChild(spanElement);
-                                bearishElement.appendChild(divElement)
-                            })
+                                return divElement;
+                            }
 
                             function handleNextModal({currentTarget: { params }}) {
                                 closeModal();
@@ -5445,6 +5444,10 @@
                                                         <div class="strategy-wrapper bearish">
                                                             <label>Bearish</label>
                                                             <div class="bearish-wrapper"></div>
+                                                        </div>
+                                                        <div class="strategy-wrapper volatile">
+                                                            <label>Volatile</label>
+                                                            <div class="volatile-wrapper"></div>
                                                         </div>
                                                     </div>
                                                 </div>
