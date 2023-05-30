@@ -4978,8 +4978,6 @@
                                 {id: 'Neutral_4', label: 'Short Iron Candor', src: 'images/Neutral/4.svg', type: 'Neutral'},
                                 {id: 'Neutral_5', label: 'Long Strangle', src: 'images/Neutral/5.svg', type: 'Neutral'},
                                 {id: 'Neutral_6', label: 'Short Strangle', src: 'images/Neutral/6.svg', type: 'Neutral'},
-                                {id: 'Neutral_7', label: 'Long Iron Butterfly', src: 'images/Neutral/7.svg', type: 'Neutral'},
-                                {id: 'Neutral_8', label: 'Short Iron Butterfly', src: 'images/Neutral/8.svg', type: 'Neutral'}
                             ];
                             const BULLISH_LIST = [
                                 {id: 'Bullish_1', label: 'Bull Call Spread', src: 'images/Bullish/1.svg', type: 'Bullish'},
@@ -4997,13 +4995,13 @@
                                 {id: 'Bearish_5', label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
                                 {id: 'Bearish_6', label: 'Call Ratio Back Spread', src: 'images/Bearish/3.svg', type: 'Bearish'},
                             ];
-                            const VOLATILE_LIST = [
-                                {id: 'Volatile_1', label: 'Bull Call Spread', src: 'images/Volatile/1.svg', type: 'Volatile'},
-                                {id: 'Volatile_2', label: 'Bull Call Spread', src: 'images/Volatile/1.svg', type: 'Volatile'},
-                                {id: 'Volatile_3', label: 'Bull Put Spread', src: 'images/Volatile/2.svg', type: 'Volatile'},
-                                {id: 'Volatile_4', label: 'Bull Put Spread', src: 'images/Volatile/2.svg', type: 'Volatile'},
-                                {id: 'Volatile_5', label: 'Call Ratio Back Spread', src: 'images/Volatile/3.svg', type: 'Volatile'},
-                                {id: 'Volatile_6', label: 'Call Ratio Back Spread', src: 'images/Volatile/3.svg', type: 'Volatile'},
+                            const MORE_LOST = [
+                                {id: 'More_1', label: 'Bull Call Spread', src: 'images/More/1.svg', type: 'More'},
+                                {id: 'More_2', label: 'Bull Call Spread', src: 'images/More/1.svg', type: 'More'},
+                                {id: 'More_3', label: 'Bull Put Spread', src: 'images/More/2.svg', type: 'More'},
+                                {id: 'More_4', label: 'Bull Put Spread', src: 'images/More/2.svg', type: 'More'},
+                                {id: 'More_5', label: 'Call Ratio Back Spread', src: 'images/More/3.svg', type: 'More'},
+                                {id: 'More_6', label: 'Call Ratio Back Spread', src: 'images/More/3.svg', type: 'More'},
                             ];
 
                             const neutralElement = document.getElementsByClassName('neutral-wrapper')[0];
@@ -5025,10 +5023,10 @@
                                 bearishElement.appendChild(divElement)
                             })
 
-                            const volatileElement = document.getElementsByClassName('volatile-wrapper')[0];
-                            VOLATILE_LIST.forEach(item => {
+                            const moreElement = document.getElementsByClassName('more-wrapper')[0];
+                            MORE_LOST.forEach(item => {
                                 const divElement = strategyCards(item);
-                                volatileElement.appendChild(divElement);
+                                moreElement.appendChild(divElement);
                             })
 
                             function strategyCards(item){
@@ -5433,21 +5431,21 @@
                                                         </div>
                                                     </div>
                                                     <div class="jw-modal-body">
-                                                        <div class="strategy-wrapper neutral">
-                                                            <label>Neutral</label>
-                                                            <div class="neutral-wrapper"></div>
-                                                        </div>
                                                         <div class="strategy-wrapper bullish">
-                                                            <label>Bullish</label>
+                                                            <label>Bullish :</label>
                                                             <div class="bullish-wrapper"></div>
                                                         </div>
                                                         <div class="strategy-wrapper bearish">
-                                                            <label>Bearish</label>
+                                                            <label>Bearish :</label>
                                                             <div class="bearish-wrapper"></div>
                                                         </div>
-                                                        <div class="strategy-wrapper volatile">
-                                                            <label>Volatile</label>
-                                                            <div class="volatile-wrapper"></div>
+                                                        <div class="strategy-wrapper neutral">
+                                                            <label>Neutral :</label>
+                                                            <div class="neutral-wrapper"></div>
+                                                        </div>
+                                                        <div class="strategy-wrapper more">
+                                                            <label>More :</label>
+                                                            <div class="more-wrapper"></div>
                                                         </div>
                                                     </div>
                                                 </div>

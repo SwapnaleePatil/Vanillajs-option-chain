@@ -360,6 +360,7 @@ body.jw-modal-open {
 	padding: 20px;
 	display: flex;
 	flex-direction: row;
+	gap: 8px;
 }
 
 .jw-modal-footer {
@@ -375,11 +376,11 @@ body.jw-modal-open {
 	padding: 16px;
 	gap: 16px;
 	width: 25%;
+	border-radius: 8px;
 }
 
 .neutral {
-	background: #F5F6F7;
-	border-radius: 8px 0px 0px 8px;
+	background: #BBD4F1;
 }
 
 .bullish {
@@ -390,12 +391,12 @@ body.jw-modal-open {
 	background: rgba(255, 235, 232, 0.6);
 }
 
-.volatile {
-	background: rgba(230, 242, 229, 0.6);
+.more {
+	background: #F5F6F7;
 	border-radius: 0px 8px 8px 0px;
 }
 
-.neutral-wrapper, .bullish-wrapper, .bearish-wrapper, .volatile-wrapper {
+.neutral-wrapper, .bullish-wrapper, .bearish-wrapper, .more-wrapper {
 	width: 100%;
 	column-count: 2;
 }
@@ -403,7 +404,7 @@ body.jw-modal-open {
 .strategy-card {
 	cursor: pointer;
 	box-sizing: border-box;
-	display: flex;
+	display: inline-flex;
 	flex-direction: column;
 	align-items: center;
 	padding: 12px 13px;
@@ -412,6 +413,7 @@ body.jw-modal-open {
 	background: #FFFFFF;
 	border: 1px solid #DCDCDC;
 	border-radius: 8px;
+	width: inherit;
 }
 
 .strategy-card .label {
