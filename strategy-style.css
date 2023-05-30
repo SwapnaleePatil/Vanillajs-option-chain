@@ -293,8 +293,8 @@ body{font-family: 'Roboto', sans-serif;}
 
 	/* semi-transparent black background exposed by padding */
 	background-color: rgba(0, 0, 0, .75);
-	padding-left: 200px;
-	padding-right: 200px;
+	padding-left: 100px;
+	padding-right: 100px;
 	padding-top: 50px;
 
 	/* enables scrolling for tall modals */
@@ -422,7 +422,8 @@ body.jw-modal-open {
 	align-items: center;
 	text-align: center;
 	color: #353535;
-
+	word-break: break-word;
+	white-space: break-spaces;
 }
 
 .strategy-type {
