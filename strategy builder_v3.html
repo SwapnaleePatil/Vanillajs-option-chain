@@ -4971,6 +4971,10 @@
                         });
 
                         $(document).ready(function () {
+                            const TABS = ['Neutral', 'Bullish', 'Bearish', 'More'];
+                            let activeTab = 'Neutral', activeCard = 'Neutral_1';
+                            const cardListElement = document.getElementsByClassName('strategy-card-wrapper')[0];
+
                             const NEUTRAL_LIST = [
                                 {id: 'Neutral_1', label: 'Long Straddle', src: 'images/Neutral/1.svg', type: 'Neutral'},
                                 {id: 'Neutral_2', label: 'Long Straddle', src: 'images/Neutral/2.svg', type: 'Neutral'},
@@ -5004,36 +5008,56 @@
                                 {id: 'More_6', label: 'Call Ratio Back Spread', src: 'images/More/3.svg', type: 'More'},
                             ];
 
-                            const neutralElement = document.getElementsByClassName('neutral-wrapper')[0];
+                            let table_data = [
+                                {id: 1, leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023', selected: false},
+                                {id: 2, leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023', selected: false},
+                                {id: 3, leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023', selected: false},
+                                {id: 4, leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023', selected: false}
+                            ];
 
-                            NEUTRAL_LIST.forEach(item => {
+
+                            const tabWiseList = {
+                                'Neutral': NEUTRAL_LIST, 'Bullish':BULLISH_LIST, 'Bearish':BEARISH_LIST, 'More': MORE_LOST
+                            }
+
+                            tabWiseList[activeTab].forEach(item => {
                                 let divElement = strategyCards(item);
-                                neutralElement.appendChild(divElement)
+                                cardListElement.appendChild(divElement)
                             })
 
-                            const bullishElement = document.getElementsByClassName('bullish-wrapper')[0];
-                            BULLISH_LIST.forEach(item => {
-                                let divElement = strategyCards(item);
-                                bullishElement.appendChild(divElement)
-                            })
+                            handleNextModal({ currentTarget: { params : tabWiseList[activeTab][0] }})
 
-                            const bearishElement = document.getElementsByClassName('bearish-wrapper')[0];
-                            BEARISH_LIST.forEach(item => {
-                                let divElement = strategyCards(item);
-                                bearishElement.appendChild(divElement)
-                            })
+                            const tabsElement = document.getElementsByClassName('strategy-tabs')[0];
+                            for(let i = 0; i < 4; i++) {
+                                let divElement = document.createElement('div');
+                                divElement.className = `strategy-tab-card ${TABS[i] === activeTab ? 'active' : ''}`;
+                                divElement.onclick = handleActiveTab;
+                                divElement.params = TABS[i];
+                                divElement.textContent = TABS[i];
+                                tabsElement.appendChild(divElement);
+                            }
 
-                            const moreElement = document.getElementsByClassName('more-wrapper')[0];
-                            MORE_LOST.forEach(item => {
-                                const divElement = strategyCards(item);
-                                moreElement.appendChild(divElement);
-                            })
+                            function handleActiveTab(item){
+                                activeTab = item.target.params;
+                                const tabCards = document.getElementsByClassName('strategy-tab-card');
+                                for(let i = 0; i < tabCards.length; i++) {
+                                    tabCards[i].classList.remove('active');
+                                }
+                                item.target.classList.add('active');
+                                cardListElement.innerHTML = '';
+                                tabWiseList[item.target.params].forEach(item => {
+                                    let divElement = strategyCards(item);
+                                    cardListElement.appendChild(divElement)
+                                })
+                                handleNextModal({ currentTarget: { params : tabWiseList[item.target.params][0] }})
+                            }
 
                             function strategyCards(item){
                                 let divElement = document.createElement('div');
-                                divElement.className = "strategy-card";
+                                divElement.className = 'strategy-card';
                                 divElement.onclick = handleNextModal;
                                 divElement.params = item;
+                                divElement.id = item.id;
                                 let imgElement = document.createElement('img');
                                 imgElement.src = item.src;
                                 let spanElement = document.createElement('span');
@@ -5044,16 +5068,23 @@
                                 return divElement;
                             }
 
-                            function handleNextModal({currentTarget: { params }}) {
-                                closeModal();
-                                openModal('strategy-detail-modal');
-                                renderChart();
+                            function handleNextModal({currentTarget: { params }, target = null}) {
+                                if(target) {
+                                    const tabCards = document.getElementsByClassName('strategy-card');
+                                    for(let i = 0; i < tabCards.length; i++) {
+                                        tabCards[i].classList.remove('active');
+                                    }
+                                }
+                                const cardElement = document.getElementById(params.id);
+                                cardElement.classList.add('active');
                                 const headerElement = document.getElementById('detail-header');
                                 headerElement.textContent = params.label;
                                 const spanElement = document.createElement('span');
                                 spanElement.className = "strategy-type";
                                 spanElement.textContent = params.type;
                                 headerElement.appendChild(spanElement);
+                                activeCard = params.id;
+                                renderChart();
                                 setTable();
                             }
 
@@ -5121,27 +5152,31 @@
                                 });
                             }
 
-                            let table_data = [
-                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'},
-                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'},
-                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'},
-                                {leg: 'Buy Call', strike: 17000, qty: 50, ltp: 12.36, expiry_date: '30-Dec-2023'}
-                            ];
-
                             function setTable() {
                                 const tbodyElement = document.getElementById('strategy-detail-table');
                                 tbodyElement.innerHTML = '';
-                                table_data.forEach((item, item_index) => {
+                                [...table_data].forEach((item, item_index) => {
                                     const trElement = document.createElement('tr');
-                                    for (let index = 0; index < 5; index++){
+                                    for (let index = 0; index < 6; index++){
                                         let tdElement = document.createElement('td');
                                         switch(index){
                                             case 0: {
+                                                let checkbox = document.createElement('input');
+                                                checkbox.type = 'checkbox';
+                                                checkbox.id = item.id;
+                                                checkbox.value = item.id;
+                                                checkbox.checked = item.selected;
+                                                checkbox.onchange = handleSelection;
+                                                checkbox.params = {item_index}
+                                                tdElement.appendChild(checkbox);
+                                                break;
+                                            }
+                                            case 1: {
                                                 tdElement.className = "leg";
                                                 tdElement.textContent = item['leg'];
                                                 break;
                                             }
-                                            case 1: {
+                                            case 2: {
                                                 let divElement = document.createElement('div');
                                                 divElement.className = "strike-price-input";
                                                 let minusElement = document.createElement('img');
@@ -5163,7 +5198,7 @@
                                                 tdElement.appendChild(divElement);
                                                 break;
                                             }
-                                            case 2: {
+                                            case 3: {
                                                 let divElement = document.createElement('div');
                                                 divElement.className = "strike-price-input";
                                                 let minusElement = document.createElement('img');
@@ -5185,12 +5220,12 @@
                                                 tdElement.appendChild(divElement);
                                                 break;
                                             }
-                                            case 3: {
+                                            case 4: {
                                                 tdElement.className = "ltp";
                                                 tdElement.textContent = item['ltp'];
                                                 break;
                                             }
-                                            case 4: {
+                                            case 5: {
                                                 const dates = ["30-Apr-2023","30-May-2023","30-Jun-2023",];
                                                 let selectList = document.createElement("select");
                                                 selectList.className = "strike-price-input";
@@ -5213,6 +5248,16 @@
                                     }
                                     tbodyElement.appendChild(trElement);
                                 })
+                            }
+
+                            function handleSelection(event) {
+                                const { item_index } = event.currentTarget.params;
+                                const new_data = [...table_data];
+                                new_data[item_index] = {
+                                    ...new_data[item_index],
+                                    selected : event.currentTarget.checked
+                                }
+                                table_data = [...new_data];
                             }
 
                             function handleStrike(event) {
@@ -5256,7 +5301,6 @@
 
                             const futurePriceElement = document.getElementById('future_price');
                             futurePriceElement.textContent = 123456789;
-
                         })
 
 
@@ -5314,7 +5358,7 @@
 
 
                                                 <div id="dvExpiryDate" style="float:left">
-                                                    <div class="create-stra-txt1"
+                                                    <div class="create-stra-txt1 create-stra-txt2"
                                                          id="ContentPlaceHolder1_ctl00_dvExpDt">
                                                         Expiry Date:
 
@@ -5367,132 +5411,128 @@
 
                                                 <div id="strategy-modal" class="jw-modal">
                                                     <div class="jw-modal-header">
-                                                        <div #scriptAndExpiryInputHolder style="display: flex;">
-                                                            <label class="create-stra-txt1" style="float:left">
-                                                                Underlying:
-                                                                <input class="input-sml form-control mrl5" id="txtStockCode"
-                                                                    maxlength="8"
-                                                                    name="txtStockCode" size="8"
-                                                                    style="text-transform: uppercase;" type="text"
-                                                                    value="NIFTY"/>
-                                                            </label>
-            
-            
-                                                            <div id="dvExpiryDate">
-                                                                <div class="create-stra-txt1"
-                                                                     id="ContentPlaceHolder1_ctl00_dvExpDt">
-                                                                    Expiry Date:
-            
-                                                                    <select class="form-control" id="txtExpiryDate"
-                                                                            name="txtExpiryDate" onchange="ViewpOptionsChain();"
-                                                                            style="width:126px !important;">
-            
-                                                                        <option selected value="23-Mar-2023">
-                                                                            23-Mar-2023
-                                                                        </option>
-            
-                                                                        <option value="29-Mar-2023">
-                                                                            29-Mar-2023
-                                                                        </option>
-            
-                                                                        <option value="06-Apr-2023">
-                                                                            06-Apr-2023
-                                                                        </option>
-            
-                                                                        <option value="13-Apr-2023">
-                                                                            13-Apr-2023
-                                                                        </option>
-            
-                                                                        <option value="20-Apr-2023">
-                                                                            20-Apr-2023
-                                                                        </option>
-            
-                                                                        <option value="27-Apr-2023">
-                                                                            27-Apr-2023
-                                                                        </option>
-            
-                                                                        <option value="25-May-2023">
-                                                                            25-May-2023
-                                                                        </option>
-            
-                                                                        <option value="29-Jun-2023">
-                                                                            29-Jun-2023
-                                                                        </option>
-            
-                                                                    </select>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- <div class="heading-color">
+                                                        <div class="heading-color">
                                                             Click to strategy to load in Strategy Builder
-                                                        </div> -->
+                                                        </div>
                                                         <div onclick="closeModal()" class="cursor-pointer">
                                                             <img src="images/common/Cross.svg" alt="cross">
                                                         </div>
                                                     </div>
                                                     <div class="jw-modal-body">
-                                                        <div class="strategy-wrapper bullish">
-                                                            <label>Bullish :</label>
-                                                            <div class="bullish-wrapper"></div>
-                                                        </div>
-                                                        <div class="strategy-wrapper bearish">
-                                                            <label>Bearish :</label>
-                                                            <div class="bearish-wrapper"></div>
-                                                        </div>
-                                                        <div class="strategy-wrapper neutral">
-                                                            <label>Neutral :</label>
-                                                            <div class="neutral-wrapper"></div>
-                                                        </div>
-                                                        <div class="strategy-wrapper more">
-                                                            <label>More :</label>
-                                                            <div class="more-wrapper"></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                        <div #scriptAndExpiryInputHolder style="display: flex;">
+                                                            <label class="create-stra-txt1" style="float:left">
+                                                                Underlying:
+                                                                <input class="input-sml form-control mrl5" id="txtStockCode"
+                                                                       maxlength="8"
+                                                                       name="txtStockCode" size="8"
+                                                                       style="text-transform: uppercase;" type="text"
+                                                                       value="NIFTY"/>
+                                                            </label>
 
-                                                <div id="strategy-detail-modal" class="jw-modal jw-strategy-modal">
-                                                    <div class="jw-modal-header">
-                                                        <div class="heading-color" id="detail-header"></div>
-                                                        <div class="heading-price" id="detail-price-header">
-                                                            <label>Spot. Price:</label><b id="spot_price"></b>
-                                                            <label class="marginX-10">|</label>
-                                                            <label>Future. Price:</label><b id="future_price"></b>
-                                                        </div>
-                                                        <div onclick="closeModal()" class="cursor-pointer">
-                                                            <img src="images/common/Cross.svg" alt="cross">
-                                                        </div>
-                                                    </div>
-                                                    <div class="jw-modal-body flex-col">
-                                                        <div class="detail-wrapper">
-                                                            <div class="width-50">
-                                                                <table>
-                                                                    <thead>
-                                                                        <tr>
-                                                                            <th class="width-15">Leg</th>
-                                                                            <th class="width-20">Strike</th>
-                                                                            <th class="width-20">Qty</th>
-                                                                            <th class="width-15">LTP</th>
-                                                                            <th class="width-30">Expiry Date</th>
-                                                                        </tr>
-                                                                    </thead>
-                                                                    <tbody id="strategy-detail-table">
-                                                                    </tbody>
-                                                                </table>
+
+                                                            <div id="dvExpiryDate">
+                                                                <div class="create-stra-txt1 create-stra-txt2"
+                                                                     id="ContentPlaceHolder1_ctl00_dvExpDt">
+                                                                    Expiry Date:
+
+                                                                    <select class="form-control" id="txtExpiryDate"
+                                                                            name="txtExpiryDate" onchange="ViewpOptionsChain();"
+                                                                            style="width:126px !important;">
+
+                                                                        <option selected value="23-Mar-2023">
+                                                                            23-Mar-2023
+                                                                        </option>
+
+                                                                        <option value="29-Mar-2023">
+                                                                            29-Mar-2023
+                                                                        </option>
+
+                                                                        <option value="06-Apr-2023">
+                                                                            06-Apr-2023
+                                                                        </option>
+
+                                                                        <option value="13-Apr-2023">
+                                                                            13-Apr-2023
+                                                                        </option>
+
+                                                                        <option value="20-Apr-2023">
+                                                                            20-Apr-2023
+                                                                        </option>
+
+                                                                        <option value="27-Apr-2023">
+                                                                            27-Apr-2023
+                                                                        </option>
+
+                                                                        <option value="25-May-2023">
+                                                                            25-May-2023
+                                                                        </option>
+
+                                                                        <option value="29-Jun-2023">
+                                                                            29-Jun-2023
+                                                                        </option>
+
+                                                                    </select>
+                                                                </div>
                                                             </div>
-                                                            <div class="width-50">
-                                                                <canvas id="myChart"></canvas>
-                                                            </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="jw-modal-footer">
-                                                        <div class="width-50">
-                                                            <label> Margin Required: </label><b>1,00,000</b>
-                                                            <br />
-                                                            <label> Available Limits: </label><b>20</b>
+                                                        <div class="strategy-tabs-wrapper">
+                                                            <div class="strategy-tabs"></div>
+                                                            <div class="strategy-tabs-help heading-color">
+                                                                <img src="images/common/Play.png" alt="play">
+                                                                 Need any help video?
+                                                            </div>
                                                         </div>
                                                         <div>
-                                                            <input class="view-btn" onclick="closeModal()" setdefault="yes"
-                                                                   type="button" value="Done">
+
+                                                        </div>
+                                                        <div class="strategy-wrapper">
+                                                            <div class="strategy-card-wrapper"></div>
+                                                            <div id="strategy-detail-wrapper" class="strategy-detail-wrapper">
+                                                                <div class="jw-modal-header">
+                                                                    <div class="heading-color" id="detail-header"></div>
+                                                                    <div class="heading-price" id="detail-price-header">
+                                                                        <label>Spot. Price:</label><b id="spot_price"></b>
+                                                                        <label class="marginX-10">|</label>
+                                                                        <label>Future. Price:</label><b id="future_price"></b>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="flex-col">
+                                                                    <div class="detail-wrapper">
+                                                                        <div class="width-50">
+                                                                            <table>
+                                                                                <thead>
+                                                                                <tr>
+                                                                                    <th class="width-10">Select</th>
+                                                                                    <th class="width-15">Leg</th>
+                                                                                    <th class="width-20">Strike</th>
+                                                                                    <th class="width-20">Qty</th>
+                                                                                    <th class="width-15">LTP</th>
+                                                                                    <th class="width-30">Expiry Date</th>
+                                                                                </tr>
+                                                                                </thead>
+                                                                                <tbody id="strategy-detail-table">
+                                                                                </tbody>
+                                                                            </table>
+                                                                        </div>
+                                                                        <div class="width-50">
+                                                                            <canvas id="myChart"></canvas>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="jw-modal-footer">
+                                                                    <div class="width-50">
+                                                                        <div class="footer-price">
+                                                                            <label>Margin Required:</label><b>1,00,000</b>
+                                                                            <label class="marginX-10">|</label>
+                                                                            <label>Available Limits:</label><b>20</b>
+                                                                        </div>
+                                                                    </div>
+                                                                    <div>
+                                                                        <input class="view-btn" onclick="closeModal()" setdefault="yes"
+                                                                               type="button" value="Done">
+                                                                    </div>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>

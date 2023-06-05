@@ -3,7 +3,8 @@
 body{font-family: 'Roboto', sans-serif;}
 .div-float1{float: left;}
 .div-float2{float: right;}
-.create-stra-txt1{font-weight: 400;font-size: 14px;line-height: 21px;color: #3d3d3d; margin-left: 20px;}
+.create-stra-txt1{font-weight: 400;font-size: 14px;line-height: 21px;color: #3d3d3d; }
+.create-stra-txt2{margin-left: 20px }
 .create-stra-select1{background: #FFFFFF;border: 1px solid rgba(61, 61, 61, 0.25);border-radius: 4px;font-weight: 400;
 	font-size: 14px;line-height: 21px;color: #3d3d3d;text-transform: uppercase;margin: 0px 8px;padding: 11px 8px;width: 123px;}
 .create-stra-select2{background-color: #FFFFFF;border: 1px solid rgba(61, 61, 61, 0.25);border-radius: 4px;font-weight: 400;
@@ -328,9 +329,6 @@ body.jw-modal-open {
 	font-weight: 500;
 	font-size: 18px;
 	line-height: 150%;
-	display: flex;
-	justify-content: center;
-	align-items: center;
 }
 
 .heading-price {
@@ -339,14 +337,20 @@ body.jw-modal-open {
 	align-items: center;
 }
 
-.heading-price label {
+.footer-price {
+	display: flex;
+	justify-content: start;
+	align-items: center;
+}
+
+.heading-price label, .footer-price label {
 	font-weight: 400;
 	font-size: 16px;
 	line-height: 19px;
 	color: #7B7F83;
 }
 
-.heading-price b{
+.heading-price b, .footer-price b{
 	font-weight: 500;
 	font-size: 16px;
 	line-height: 19px;
@@ -355,57 +359,77 @@ body.jw-modal-open {
 	color: #353535;
 }
 
+.strategy-tabs-wrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+.strategy-tabs {
+	display: flex;
+}
+
+.strategy-tabs-help {
+	align-items: end;
+	display: flex;
+	padding-bottom: 10px;
+}
+
+.strategy-tabs-help img {
+	margin-right: 5px;
+	height: 30px;
+}
+
+.strategy-tab-card {
+	padding: 5px 20px;
+	color: #004A81;
+	background: #EFF6FF;
+	margin: 20px 10px 10px 0;
+	border-radius: 30px;
+	cursor: pointer;
+}
+
+.strategy-tab-card.active {
+	background: #FDF1E8;
+	color: #E77817;
+}
+
 .jw-modal-body {
 	background: #fff;
 	padding: 20px;
-	display: flex;
-	flex-direction: row;
-	gap: 8px;
 }
 
 .jw-modal-footer {
 	background: #fff;
 	padding: 20px;
 	display: flex;
+	justify-content: space-between;
+}
+
+.strategy-card.active {
+	border: 1px solid #E77817;
+	border-radius: 4px;
 }
 
 .strategy-wrapper{
 	display: flex;
-	flex-direction: column;
 	align-items: flex-start;
 	padding: 16px;
 	gap: 16px;
-	width: 25%;
 	border-radius: 8px;
 }
 
-.neutral {
-	background: #BBD4F1;
-}
-
-.bullish {
+.strategy-card-wrapper {
 	background: rgba(230, 242, 229, 0.6);
-}
-
-.bearish {
-	background: rgba(255, 235, 232, 0.6);
-}
-
-.more {
-	background: #F5F6F7;
-	border-radius: 0px 8px 8px 0px;
-}
-
-.neutral-wrapper, .bullish-wrapper, .bearish-wrapper, .more-wrapper {
-	width: 100%;
-	column-count: 2;
+	border-radius:8px;
+	padding: 20px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	width: 30%;
 }
 
 .strategy-card {
 	cursor: pointer;
-	box-sizing: border-box;
-	display: inline-flex;
-	flex-direction: column;
 	align-items: center;
 	padding: 12px 13px;
 	margin-bottom: 10px;
@@ -413,7 +437,8 @@ body.jw-modal-open {
 	background: #FFFFFF;
 	border: 1px solid #DCDCDC;
 	border-radius: 8px;
-	width: inherit;
+	box-sizing: border-box;
+	width: 45%;
 }
 
 .strategy-card .label {
@@ -436,6 +461,12 @@ body.jw-modal-open {
 	font-size: 10px;
 	line-height: 100%;
 	margin-left: 10px;
+}
+
+.strategy-detail-wrapper {
+	border: 1px solid #eeeeee;
+	border-radius: 4px;
+	width: 70%;
 }
 
 .marginX-10 {
@@ -487,6 +518,7 @@ body.jw-modal-open {
 	margin-top: 24px;
 	display: flex;
 	gap: 20px;
+	padding: 20px;
 }
 
 .detail-wrapper table thead tr th {
