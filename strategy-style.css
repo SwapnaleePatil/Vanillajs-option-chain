@@ -409,7 +409,7 @@ body.jw-modal-open {
 	align-items: center;
 	padding: 12px 13px;
 	margin-bottom: 10px;
-	gap: 4px;
+	gap: 10px;
 	background: #FFFFFF;
 	border: 1px solid #DCDCDC;
 	border-radius: 8px;
@@ -421,11 +421,11 @@ body.jw-modal-open {
 	font-size: 12px;
 	line-height: 150%;
 	display: flex;
-	align-items: center;
 	text-align: center;
 	color: #353535;
 	word-break: break-word;
 	white-space: break-spaces;
+	min-height: 42px;
 }
 
 .strategy-type {
