@@ -408,6 +408,8 @@ body.jw-modal-open {
 .strategy-card.active {
 	border: 1px solid #E77817;
 	border-radius: 4px;
+	display: flex;
+	flex-direction: column;
 }
 
 .strategy-wrapper{
@@ -425,7 +427,7 @@ body.jw-modal-open {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
-	width: 30%;
+	width: 25%;
 }
 
 .strategy-card {
@@ -439,6 +441,8 @@ body.jw-modal-open {
 	border-radius: 8px;
 	box-sizing: border-box;
 	width: 45%;
+	display: flex;
+	flex-direction: column;
 }
 
 .strategy-card .label {
@@ -466,7 +470,7 @@ body.jw-modal-open {
 .strategy-detail-wrapper {
 	border: 1px solid #eeeeee;
 	border-radius: 4px;
-	width: 70%;
+	width: 75%;
 }
 
 .marginX-10 {
@@ -488,6 +492,10 @@ body.jw-modal-open {
 
 .flex-col {
 	flex-direction: column;
+}
+
+.width-60 {
+	width: 60%;
 }
 
 .width-50 {
@@ -526,7 +534,7 @@ body.jw-modal-open {
 	font-size: 12px;
 	line-height: 150%;
 	color: #80878E;
-	text-align: start;
+	text-align: center;
 }
 
 .detail-wrapper table thead tr {
@@ -541,7 +549,7 @@ body.jw-modal-open {
 .detail-wrapper table tbody tr td {
 	padding-top: 12px;
 	padding-bottom: 12px;
-	text-align: start;
+	text-align: center;
 }
 
 .ltp {
@@ -567,7 +575,6 @@ body.jw-modal-open {
 	background: #FFFFFF;
 	border: 1px solid #DCDCDC;
 	border-radius: 8px;
-	margin-right: 10px;
 }
 
 .strike-price-input label {
